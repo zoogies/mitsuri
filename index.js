@@ -55,7 +55,7 @@ client.on("messageCreate", (message) => {
   }
   else if(message.content.startsWith('!ryangif')){
     var gifnum = Math.floor(Math.random()*gifs.length);
-    message.channel.send('ryans saved gif #'+gifnum+' '+gifs[gifnum]);
+    message.channel.send('ryans saved gif #'+gifnum+' '+gifs[gifnum]['url']);
   }
 });
 
