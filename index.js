@@ -9,7 +9,7 @@ const axios = require('axios');
 
 const prefix = "!prompt"
 const options = ['characters','animals','situations','objects']
-const askresponse = ['yes daddy 😍', 'ewwwwwwww nooo 🤢', 'idkkk 😶','😈','idc 🥱','yes pweaaase 🥺','😉']
+const askresponse = ['yes daddy 😍', 'ewwwwwwww nooo 🤢', 'idkkk 😶','😈','idc 🥱','yes pweaaase 🥺','😉','https://c.tenor.com/SdsYv4vylh0AAAAC/dog-saying-no-no.gif','https://c.tenor.com/Pta1QQlnZZYAAAAC/ben-yes-yes.gif','https://c.tenor.com/01tnAz3pRFwAAAAC/ben-laughs-ben-laughing.gif','https://c.tenor.com/VfB8CeuNh-0AAAAC/dog-hang-up-the-call-ben-hang-up.gif']
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
 });
