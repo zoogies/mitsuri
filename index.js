@@ -6,6 +6,8 @@ const axios = require('axios');
 //const DiscordRPC = require('discord-rpc');
 //const RPC = new DiscordRPC.Client({transport:'ipc'});
 //DiscordRPC.register(config.ClientID);
+const giffile = require('./gifs.json');
+const gifs = giffile['gifs'];
 
 const prefix = "!prompt"
 const options = ['characters','animals','situations','objects']
@@ -50,6 +52,10 @@ client.on("messageCreate", (message) => {
   }
   else if(message.content.startsWith('!ask')){
     message.channel.send(askresponse[Math.floor(Math.random()*askresponse.length)]);
+  }
+  else if(message.content.startsWith('!ryangif')){
+    var gifnum = Math.floor(Math.random()*gifs.length);
+    message.channel.send('ryans saved gif #'+gifnum+' '+gifs[gifnum]);
   }
 });
 
