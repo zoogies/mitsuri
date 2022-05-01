@@ -9,6 +9,7 @@ const axios = require('axios');
 
 const prefix = "!prompt"
 const options = ['characters','animals','situations','objects']
+const askresponse = ['yes daddy 😍', 'ewwwwwwww nooo 🤢', 'idkkk 😶','😈','idc 🥱','yes pweaaase 🥺','😉']
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
 });
@@ -46,6 +47,9 @@ client.on("messageCreate", (message) => {
     else if(args[0] === 'list'){
         message.channel.send('To get a prompt send a message formatted like this: `!prompt {category}`. Acceptable categories are: characters, animals, situations, objects.');
     }
+  }
+  else if(message.content.startsWith('!ask')){
+    message.channel.send(askresponse[Math.floor(Math.random()*askresponse.length)]);
   }
 });
 
