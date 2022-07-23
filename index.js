@@ -1,5 +1,6 @@
 // Require the necessary discord.js classes
 const { Client, Intents, MessageFlags } = require('discord.js');
+const {Builder, Browser, By, Key, until} = require('selenium-webdriver');
 const { token } = require('./config.json');
 //const config = require('./rpc.json');
 const axios = require('axios');
@@ -56,6 +57,26 @@ client.on("messageCreate", (message) => {
   else if(message.content.startsWith('!ryangif')){
     var gifnum = Math.floor(Math.random()*gifs.length);
     message.channel.send('ryans saved gif #'+gifnum+' '+gifs[gifnum]['url']);
+  }
+  else if(message.content.startsWith('!dalle')){ //IN PROGRESS BOOLEAN AND QUEUE TODO
+    message.channel.send(args.join(' '));
+    (async function example() {
+      let driver = new Builder().forBrowser(Browser.CHROME).build();
+      try {
+        await driver.get("https://www.craiyon.com/");
+        await driver.findElement(By.id('prompt')).sendKeys(args.join(' '), Key.RETURN);
+        await driver.wait(until.elementLocated(By.className('grid-cols-3')), 200000);
+        await driver.findElement(By.css("button[aria-label=Screenshot]")).click;
+        //await driver.findElement(By.className('grid-cols-3')).getSize().then(function(size) {
+        //await console.log(await driver.takeScreenshot());
+        await driver.sleep(5000);
+      } catch (e) {
+        console.log("Error Occured:", e.name);
+      }
+       finally {
+        await driver.quit();
+      }
+    })();
   }
 });
 
