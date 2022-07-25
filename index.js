@@ -29,7 +29,7 @@ const client = new Client({
 //}
 
 client.on("ready", () => {
-  console.log("Art Prompt Bot v4.22.22 >> Ryan Zmuda");
+  console.log("Art Prompt Bot v7.24.22 >> Ryan Zmuda");
   client.user.setPresence({ activities: [{ name: 'with Mitsuri Kanroji\'s boobs' }], status: 'online' });
   //RPC.on('ready', async () => {
   //  setActivity();
@@ -65,16 +65,30 @@ client.on("messageCreate", (message) => {
       try {
         await driver.get("https://www.craiyon.com/");
         await driver.findElement(By.id('prompt')).sendKeys(args.join(' '), Key.RETURN);
+        //TODO NEED CHECK FOR TOO MUCH TRAFFIC OR JUST A GENERAL TIMEOUT
+        //TODO HONESTLY JUST ADD A TIMEOUT THING RIGHT HERE FOR THIS WHOLE FUNCTION
         await driver.wait(until.elementLocated(By.className('grid-cols-3')), 200000);
-        await driver.findElement(By.css("button[aria-label=Screenshot]")).click;
+        //await driver.findElement(By.css("[aria-label=Screenshot]")).click;
+        var images = driver.findElements(By.className('aspect-w-1 aspect-h-1'))
+            for(image in images){
+              console.log(image, typeof image)
+              console.log(image.findElement(By.className('border-gray-500')).getAttribute("src"));
+            }
+        
+        //ok so basically the plan is to scrape the base64 from every single element and combine
+        //if this isnt cross platform i will lose it
+
+
         //await driver.findElement(By.className('grid-cols-3')).getSize().then(function(size) {
         //await console.log(await driver.takeScreenshot());
         await driver.sleep(5000);
-      } catch (e) {
-        console.log("Error Occured:", e.name);
-      }
-       finally {
+
         await driver.quit();
+        message.channel.send("done!");
+
+      } catch (e) {
+        console.log("Error Occured:", e);
+        message.channel.send("A problem occurred processing a dalle request.");
       }
     })();
   }
