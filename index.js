@@ -1,6 +1,6 @@
 // Require the necessary discord.js classes
 const { Client, Intents, MessageFlags } = require('discord.js');
-const {Builder, Browser, By, Key, until} = require('selenium-webdriver');
+// const {Builder, Browser, By, Key, until} = require('selenium-webdriver');
 const { token } = require('./config.json');
 //const config = require('./rpc.json');
 const axios = require('axios');
@@ -29,7 +29,7 @@ const client = new Client({
 //}
 
 client.on("ready", () => {
-  console.log("Art Prompt Bot v7.24.22 >> Ryan Zmuda");
+  console.log("Art Prompt Bot v8.12.22 >> Ryan Zmuda");
   client.user.setPresence({ activities: [{ name: 'with Mitsuri Kanroji\'s boobs' }], status: 'online' });
   //RPC.on('ready', async () => {
   //  setActivity();
@@ -58,40 +58,43 @@ client.on("messageCreate", (message) => {
     var gifnum = Math.floor(Math.random()*gifs.length);
     message.channel.send('ryans saved gif #'+gifnum+' '+gifs[gifnum]['url']);
   }
-  else if(message.content.startsWith('!dalle')){ //IN PROGRESS BOOLEAN AND QUEUE TODO
-    message.channel.send(args.join(' '));
-    (async function example() {
-      let driver = new Builder().forBrowser(Browser.CHROME).build();
-      try {
-        await driver.get("https://www.craiyon.com/");
-        await driver.findElement(By.id('prompt')).sendKeys(args.join(' '), Key.RETURN);
-        //TODO NEED CHECK FOR TOO MUCH TRAFFIC OR JUST A GENERAL TIMEOUT
-        //TODO HONESTLY JUST ADD A TIMEOUT THING RIGHT HERE FOR THIS WHOLE FUNCTION
-        await driver.wait(until.elementLocated(By.className('grid-cols-3')), 200000);
-        //await driver.findElement(By.css("[aria-label=Screenshot]")).click;
-        var images = driver.findElements(By.className('aspect-w-1 aspect-h-1'))
-            for(image in images){
-              console.log(image, typeof image)
-              console.log(image.findElement(By.className('border-gray-500')).getAttribute("src"));
-            }
+  // else if(message.content.startsWith('!dalle')){ //IN PROGRESS BOOLEAN AND QUEUE TODO
+  //   message.channel.send(args.join(' '));
+  //   (async function example() {
+  //     let driver = new Builder().forBrowser(Browser.CHROME).build();
+  //     try {
+  //       await driver.get("https://www.craiyon.com/");
+  //       await driver.findElement(By.id('prompt')).sendKeys(args.join(' '), Key.RETURN);
+  //       //TODO NEED CHECK FOR TOO MUCH TRAFFIC OR JUST A GENERAL TIMEOUT
+  //       //TODO HONESTLY JUST ADD A TIMEOUT THING RIGHT HERE FOR THIS WHOLE FUNCTION
+  //       await driver.wait(until.elementLocated(By.className('grid-cols-3')), 200000);
+  //       //await driver.findElement(By.css("[aria-label=Screenshot]")).click;
+  //       var images = driver.findElements(By.className('aspect-w-1 aspect-h-1'))
+  //           for(image in images){
+  //             console.log(image, typeof image)
+  //             console.log(image.findElement(By.className('border-gray-500')).getAttribute("src"));
+  //           }
         
-        //ok so basically the plan is to scrape the base64 from every single element and combine
-        //if this isnt cross platform i will lose it
+  //       //ok so basically the plan is to scrape the base64 from every single element and combine
+  //       //if this isnt cross platform i will lose it
 
 
-        //await driver.findElement(By.className('grid-cols-3')).getSize().then(function(size) {
-        //await console.log(await driver.takeScreenshot());
-        await driver.sleep(5000);
+  //       //await driver.findElement(By.className('grid-cols-3')).getSize().then(function(size) {
+  //       //await console.log(await driver.takeScreenshot());
+  //       await driver.sleep(5000);
 
-        await driver.quit();
-        message.channel.send("done!");
+  //       await driver.quit();
+  //       message.channel.send("done!");
 
-      } catch (e) {
-        console.log("Error Occured:", e);
-        message.channel.send("A problem occurred processing a dalle request.");
-      }
-    })();
-  }
+  //     } catch (e) {
+  //       console.log("Error Occured:", e);
+  //       message.channel.send("A problem occurred processing a dalle request.");
+  //     }
+  //   })();
+  // }
 });
 
 client.login(token);
+
+
+//possibly just rewrite this whole mf in python with a server that syncs saved gifs
