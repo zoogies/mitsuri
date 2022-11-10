@@ -16,7 +16,7 @@ for (const file of commandFiles) {
 }
 
 client.once(Events.ClientReady, () => {
-	console.log("Art Prompt Bot v11.9.22 >> Ryan Zmuda");
+	console.log("Mitsuri Bot v11.9.22 >> Ryan Zmuda");
 });
 
 client.on(Events.InteractionCreate, async interaction => {
