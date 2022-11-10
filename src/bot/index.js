@@ -16,7 +16,10 @@ for (const file of commandFiles) {
 }
 
 client.once(Events.ClientReady, () => {
-	console.log("Mitsuri Bot v11.9.22 >> Ryan Zmuda");
+	console.log("Mitsuri Bot v11.10.22 >> Ryan Zmuda");
+	//rpc = 'with https://zoogies.live servers 😎'
+	//client.user.setActivity(rpc);
+	//console.log('RPC set -> Playing '+rpc)
 });
 
 client.on(Events.InteractionCreate, async interaction => {
