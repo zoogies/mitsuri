@@ -1,6 +1,6 @@
 FROM node:lts-alpine
 
-WORKDIR /usr/src/mommy
+WORKDIR /src
 
 COPY package.json ./
 RUN npm install
