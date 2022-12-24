@@ -2,7 +2,7 @@ FROM node:lts-alpine
 
 WORKDIR .
 
-COPY ./src /mitsuri
+COPY /src /mitsuri
 
 RUN npm install
 
