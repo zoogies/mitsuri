@@ -44,15 +44,8 @@ jobs:
         working-directory: src/
         run: |
           IMAGE_ID=$(echo ghcr.io/${{ github.repository }} | tr '[A-Z]' '[a-z]')
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-          # when the branch is main, replace master with latest
-          [ "$VERSION" == "main" ] && VERSION=latest
           echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
           # Build and Publish container image
           docker buildx build --push \
-          --tag $IMAGE_ID:$VERSION \
+          --tag $IMAGE_ID:main \
           --platform linux/amd64,linux/arm/v7,linux/arm64 .
