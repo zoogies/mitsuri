@@ -1,6 +1,6 @@
 FROM node:lts-alpine
 
-WORKDIR /home/dietpi/projects/mitsuri
+WORKDIR /usr/src/mitsuri
 
 COPY . ./
 
