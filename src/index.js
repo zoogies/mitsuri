@@ -15,8 +15,15 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
 }
 
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+ 
+const file = fileURLToPath(new URL('package.json', import.meta.url));
+const json = readFileSync(file, 'utf8');
+const pkg = JSON.parse(json);
+
 client.once(Events.ClientReady, () => {
-	console.log("Mitsuri Bot v12.23.22 >> Ryan Zmuda"); // TODO SET THIS TO ENV VARIABLE SEMVER BUILD NUM
+	console.log("Mitsuri Bot v"+JSON.stringify(pkg.version)+" >> Ryan Zmuda");
 	rpc = 'with https://zoogies.live servers 😎';
 	client.user.setActivity(rpc);
 	console.log('RPC set -> Playing '+rpc);
