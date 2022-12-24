@@ -1,4 +1,4 @@
-name: Create and publish a Docker image
+name: stable build
 
 on:
   push:
@@ -48,8 +48,8 @@ jobs:
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           # Strip "v" prefix from tag name
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-          # when the branch is master, replace master with latest
-          [ "$VERSION" == "master" ] && VERSION=latest
+          # when the branch is main, replace master with latest
+          [ "$VERSION" == "main" ] && VERSION=latest
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
           # Build and Publish container image
