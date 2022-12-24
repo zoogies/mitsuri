@@ -1,7 +1,11 @@
 version: '3'
 services:
   bot:
-    image: ghcr.io/tatsumara/altair:nightly
+    image: ghcr.io/yoyolick/mitsuri:main
     ports:
       - 3003:3000
+    volumes:
+      - type: bind
+        source: /home/dietpi/projects/mitsuri
+        target: .
     restart: unless-stopped
