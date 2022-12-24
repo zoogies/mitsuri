@@ -14,13 +14,8 @@ for (const file of commandFiles) {
 	const command = require(filePath);
 	client.commands.set(command.data.name, command);
 }
-
-import { readFileSync } from 'fs';
-import { fileURLToPath } from 'url';
  
-const file = fileURLToPath(new URL('package.json', import.meta.url));
-const json = readFileSync(file, 'utf8');
-const pkg = JSON.parse(json);
+const pkg = require("./package.json")
 
 client.once(Events.ClientReady, () => {
 	console.log("Mitsuri Bot v"+JSON.stringify(pkg.version)+" >> Ryan Zmuda");
