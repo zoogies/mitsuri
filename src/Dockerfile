@@ -1,8 +1,8 @@
 FROM node:lts-alpine
 
-WORKDIR /usr/src/mitsuri
+WORKDIR .
 
-COPY . ./
+COPY . ./mitsuri
 
 RUN npm install
 
