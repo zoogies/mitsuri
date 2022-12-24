@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - src/bot/package.json
+      - src/package.json
 
 jobs:
   tag:
