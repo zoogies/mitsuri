@@ -1,7 +1,7 @@
 {
   "name": "mitsuri",
-  "version": "2.2.4",
-  "description": "a art prompt generator",
+  "version": "2.2.5",
+  "description": "A custom discord bot capable of much tomfoolery",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
