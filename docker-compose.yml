@@ -7,5 +7,5 @@ services:
     volumes:
       - type: bind
         source: /home/dietpi/projects/mitsuri
-        target: /mitsuri
+        target: /usr/mitsuri
     restart: unless-stopped

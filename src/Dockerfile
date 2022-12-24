@@ -6,4 +6,4 @@ COPY . .
 
 RUN npm install
 
-CMD ["pwd && ls"]
+CMD ["node","index.js"]
