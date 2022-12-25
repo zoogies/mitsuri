@@ -2,9 +2,7 @@ name: nightly build
 
 on:
   push:
-    # branches: ['main']
-    tags:
-      - "v*" # TEMP CHANGE TODO SWITCH BACK
+    branches: ['main']
 
 env:
   REGISTRY: ghcr.io
@@ -57,3 +55,8 @@ jobs:
           docker buildx build --push \
           --tag $IMAGE_ID:nightly \
           --platform linux/amd64,linux/arm/v7,linux/arm64 .
+      
+      - name: Delete old package versions
+        uses: camargo/delete-untagged-action@v1
+        with:
+          github-token: ${{ secrets.PAT }}
