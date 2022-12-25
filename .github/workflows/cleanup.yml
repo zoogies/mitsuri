@@ -17,6 +17,6 @@ jobs:
 
     steps:
       - name: Delete old package versions
-        uses: smartsquaregmbh/delete-old-packages@v0.6.0
+        uses: camargo/delete-untagged-action@v1
         with:
-          names: ${{ env.PACKAGE_ID }}
+          github-token: ${{ secrets.PAT }}
