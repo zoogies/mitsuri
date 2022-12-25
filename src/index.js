@@ -18,7 +18,7 @@ for (const file of commandFiles) {
 const pkg = require("./package.json")
 
 client.once(Events.ClientReady, () => {
-	console.log("Mitsuri Bot v"+JSON.stringify(pkg.version)+" >> Ryan Zmuda");
+	console.log("Mitsuri Bot v"+JSON.stringify(pkg.version).replace('"', "")+" >> Ryan Zmuda");
 	rpc = 'with https://zoogies.live servers 😎';
 	client.user.setActivity(rpc);
 	console.log('RPC set -> Playing '+rpc);
