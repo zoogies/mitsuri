@@ -11,9 +11,9 @@ module.exports = {
 	async execute(interaction) {
 		const user = interaction.options.getUser('target');
 		if(interaction.options.getUser('target')){
-			await interaction.reply('Hiiiiii!!! ❤️❤️❤️❤️❤️❤️ <@'+user+'>     https://www.icegif.com/wp-content/uploads/2022/03/icegif-1249.gif');
+			await interaction.reply('Hiiiiii!!! ❤️❤️❤️❤️❤️❤️ <@'+user+'>     https://media.tenor.com/KX-URy7fC6oAAAAd/mitsuri-kanroji.gif');
 		}else{
-			await interaction.reply('Hiiiiii!!! ❤️❤️❤️❤️❤️❤️     https://www.icegif.com/wp-content/uploads/2022/03/icegif-1249.gif');
+			await interaction.reply('Hiiiiii!!! ❤️❤️❤️❤️❤️❤️     https://media.tenor.com/KX-URy7fC6oAAAAd/mitsuri-kanroji.gif');
 		}
 	},
 };
