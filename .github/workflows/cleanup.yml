@@ -1,4 +1,4 @@
-name: cleanupp
+name: cleanup
 
 on:
   push:
