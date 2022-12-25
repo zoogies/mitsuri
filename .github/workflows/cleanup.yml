@@ -1,4 +1,4 @@
-name: nightly build
+name: cleanup
 
 on:
   push:
@@ -9,30 +9,13 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-and-push-image:
+  cleanup:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
 
     steps:
-      - name: Delete old package versions
-        uses: actions/delete-package-versions@v3
-        with:
-          package-name: mitsuri.nightly
-          min-versions-to-keep: 0
-      - name: Delete old package versions
-        uses: actions/delete-package-versions@v3
-        with:
-          package-name: mitsuri.main
-          min-versions-to-keep: 0
-      - name: Delete old package versions
-        uses: actions/delete-package-versions@v3
-        with:
-          package-name: mitsuri:main
-          min-versions-to-keep: 0
-      - name: Delete old package versions
-        uses: actions/delete-package-versions@v3
-        with:
-          package-name: mitsuri
-          min-versions-to-keep: 0
+      uses: smartsquaregmbh/delete-old-packages@v0.6.0
+      with:
+        names: ${{ env.PACKAGE_ID }}
