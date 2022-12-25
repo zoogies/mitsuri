@@ -2,7 +2,9 @@ name: nightly build
 
 on:
   push:
-    branches: ['main']
+    # branches: ['main']
+    tags:
+      - "v*" # TEMP CHANGE TODO SWITCH BACK
 
 env:
   REGISTRY: ghcr.io
