@@ -57,7 +57,6 @@ jobs:
           --platform linux/amd64,linux/arm/v7,linux/arm64 .
       
       - name: Delete old package versions
-        uses: actions/delete-package-versions@v3
+        uses: smartsquaregmbh/delete-old-packages@v0.6.0
         with:
-          package-name: mitsuri.nightly
-          min-versions-to-keep: 0
+          names: ${{ env.PACKAGE_ID }}
