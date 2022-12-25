@@ -54,4 +54,4 @@ jobs:
         uses: actions/delete-package-versions@v3
         with:
           package-name: mitsuri
-          min-versions-to-keep: 2
+          min-versions-to-keep: 0
