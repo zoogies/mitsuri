@@ -60,4 +60,4 @@ jobs:
         uses: smartsquaregmbh/delete-old-packages@v0.6.0
         with:
           names: |
-            mitsuri:nightly
+            nightly
