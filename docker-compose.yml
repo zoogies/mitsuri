@@ -1,7 +1,10 @@
 version: '3'
 services:
   bot:
-    image: ghcr.io/yoyolick/mitsuri:main
+    # ALL THE NIGHTLY BUILD STUFF WILL REMAIN OFF BECAUSE I DONT REALLY FEEL LIKE MAKING NIGHTLY HOSTED ON SERVER 
+    image: ghcr.io/yoyolick/mitsuri:main # needs to be changed to match environment
+    # environment:
+      # - NODE_ENV=production # changable to 'development or nightly'
     ports:
       - 3003:3000
     volumes:

@@ -1,8 +1,27 @@
+// normal lib declarations
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const { token } = require('/usr/mitsuri/config.json');
 
+// RUN DEV: NODE_ENV=development node index.js
+// get the env and read from our config accordingly
+const env = process.env.NODE_ENV || 'production';
+let token;
+if(env == 'development'){
+	console.log(">> launching in development mode");
+	token = require('./config-dev.json')['token'];
+	console.log("TOKEN:\n>>"+token);
+}
+else if(env == 'nightly'){
+	console.log(">> launching in nightly mode");
+	token = require('/usr/mitsuri/config-dev.json')['token'];
+}
+else{
+	console.log(">> launching in production mode");
+	token = require('/usr/mitsuri/config.json')['token'];
+}
+
+// build our client
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();

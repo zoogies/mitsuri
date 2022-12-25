@@ -1,6 +1,21 @@
 const { REST, Routes } = require('discord.js');
-const { clientId, guildId, token } = require('./config.json');
+// const { clientId, guildId, token } = require('./config.json');
 const fs = require('node:fs');
+
+// get the env and read from our config accordingly
+const env = process.env.NODE_ENV || 'development';
+let token;
+let clientId;
+if(env == 'development'){
+	console.log(">> launching in development mode");
+	token = require('./config-dev.json')['token'];
+	clientId = require('./config-dev.json')['clientId'];
+}
+else{
+	console.log(">> launching in production mode");
+	token = require('./config.json')['token'];
+	clientId = require('./config.json')['clientId'];
+}
 
 const commands = [];
 // Grab all the command files from the commands directory you created earlier

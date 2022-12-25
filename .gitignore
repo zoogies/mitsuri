@@ -2,3 +2,4 @@ config.json
 node_modules
 chromedriver_mac64_m1.zip
 chromedriver_linux64.zip
+src/config-dev.json
