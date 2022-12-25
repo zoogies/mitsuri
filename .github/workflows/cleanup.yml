@@ -19,4 +19,5 @@ jobs:
       - name: Delete old package versions
         uses: smartsquaregmbh/delete-old-packages@v0.6.0
         with:
-          names: ${{ env.PACKAGE_ID }}
+          names: |
+            mitsuri
