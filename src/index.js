@@ -10,7 +10,7 @@ let token;
 if(env == 'development'){
 	console.log(">> launching in development mode");
 	token = require('./config-dev.json')['token'];
-	console.log("TOKEN:\n>>"+token);
+	console.log(">> TOKEN: "+token);
 }
 else if(env == 'nightly'){
 	console.log(">> launching in nightly mode");
