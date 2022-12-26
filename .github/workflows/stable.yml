@@ -48,9 +48,9 @@ jobs:
           # Build and Publish container image
           docker buildx build --push \
           --tag $IMAGE_ID:main \
-          --platform linux/amd64,linux/arm/v7,linux/arm64 .
+          --platform linux/arm/v7 .
       
-      - name: Delete old package versions
-        uses: camargo/delete-untagged-action@v1
-        with:
-          github-token: ${{ secrets.PAT }}
+      # - name: Delete old package versions
+      #   uses: camargo/delete-untagged-action@v1
+      #   with:
+      #     github-token: ${{ secrets.PAT }}
