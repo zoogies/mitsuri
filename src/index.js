@@ -37,11 +37,10 @@ for (const file of commandFiles) {
 const pkg = require("./package.json")
 
 client.once(Events.ClientReady, () => {
-	console.log("Mitsuri Bot v"+JSON.stringify(pkg.version).replace('"', "")+" >> Ryan Zmuda");
+	console.log(">> Mitsuri Bot v"+pkg.version+" by Ryan Zmuda");
 	rpc = 'with https://zoogies.live servers 😎';
 	client.user.setActivity(rpc);
-	console.log('RPC set -> Playing '+rpc);
-	console.log(">> Bot fully initialized.");
+	console.log('>> RPC set -> Playing '+rpc);
 });
 
 client.on(Events.InteractionCreate, async interaction => {
@@ -60,3 +59,4 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.login(token);
+console.log(">> Bot fully initialized.");
