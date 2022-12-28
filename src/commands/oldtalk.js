@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('oldtalk')
-		.setDescription('NON CONVERSATIONAL - Talk to an AI version of mitsuri')
+		.setDescription('non conversational - Talk to an AI version of mitsuri')
         .addStringOption(option =>
             option
                 .setName('input')
@@ -26,7 +26,7 @@ module.exports = {
     try{
         const completion = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: "you are a cute chatty anime girl replying to the following message:\n"+input,
+            prompt: "you are a cute anime girl chatbot named mitsuri, you may use emojis intermittently and hearts:\n"+input,
             max_tokens: 200,
             temperature: .5
         });
