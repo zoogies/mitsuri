@@ -88,14 +88,24 @@ Sends the current build version and a link to the changelogs
 
 ---
 
-### `/talk`
+### `/oldtalk`
 
-Allows a user to talk to mitsuri utilizing the openai davinci text model
+Allows a user to talk to mitsuri utilizing the openai davinci text model which is non conversational
 
 **Parameters:**
 
 - **(required)** String: text to say to mitsuri
 
+---
+
+### `/talk`
+
+Allows a user to talk to mitsuri utilizing a wrapper for the conversational chatgpt
+
+**Parameters:**
+
+- **(required)** String: text to say to mitsuri
+ 
 ---
 
 ### `/ping`
