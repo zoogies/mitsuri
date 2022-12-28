@@ -3,23 +3,37 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 
+// openai
+const { Configuration, OpenAIApi } = require("openai");
+
 // RUN DEV: NODE_ENV=development node index.js
 // get the env and read from our config accordingly
 const env = process.env.NODE_ENV || 'production';
 let token;
+let configuration;
 if(env == 'development'){
 	console.log(">> launching in development mode");
 	token = require('./config-dev.json')['token'];
 	console.log(">> TOKEN: "+token);
-}
-else if(env == 'nightly'){
-	console.log(">> launching in nightly mode");
-	token = require('/usr/mitsuri/config-dev.json')['token'];
+	configuration = new Configuration({
+		apiKey: require('./config-dev.json')['OPENAI_API_KEY'],
+	});
+	console.log(">> OPENAI_API_KEY LOADED");
 }
 else{
 	console.log(">> launching in production mode");
 	token = require('/usr/mitsuri/config.json')['token'];
+	configuration = new Configuration({
+		apiKey: require('/usr/mitsuri/config.json')['OPENAI_API_KEY'],
+	});
+	console.log(">> OPENAI_API_KEY LOADED");
 }
+
+// openai post init setup
+const openai = new OpenAIApi(configuration);
+module.exports = {
+	openai,
+}; // allow this openai object to be accessed from our slash commands
 
 // build our client
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
