@@ -12,8 +12,6 @@ An all purpose discord bot
 
 ## Commands
 
----
-
 ### `/ryangif`
 
 Sends a random gif from ryan's saved gifs
