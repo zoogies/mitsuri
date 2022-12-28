@@ -6,35 +6,106 @@ An all purpose discord bot
 
 ---
 
-## Invite To A Server
-
- - Stable: https://discord.com/api/oauth2/authorize?client_id=969343378535903262&scope=applications.commands
-
- - Nightly: https://discord.com/api/oauth2/authorize?client_id=1056700114195992596&permissions=0&scope=bot
+## [Click To Invite To A Server](https://discord.com/api/oauth2/authorize?client_id=969343378535903262&scope=applications.commands)
 
 ---
 
 ## Commands
 
-### /ryangif
+---
+
+### `/ryangif`
 
 Sends a random gif from ryan's saved gifs
 
-### /ask
+---
+
+### `/ask`
 
 Ask mitsuri a question and see what she says
 
-### /hi
+**Parameters:**
+
+- **(required)** String: question text
+
+---
+
+### `/greet`
 
 Sends a greeting
 
-### /prompt
+**Parameters:**
+
+- **(optional)** User: user to greet **(defaults to self)**
+
+---
+
+### `/prompt`
 
 Sends a random art prompt
 
-#### Allowed Choices
+**Parameters:**
 
-- Characters
-- Animals
-- Situations
-- Objects
+- **(required)** String Selector: 
+  - Characters
+  - Animals
+  - Situations
+  - Objects
+
+---
+
+### `/dap`
+
+Daps a user up
+
+**Parameters:**
+
+- **(optional)** User: user to dap **(defaults to self)**
+
+---
+
+### `/hug`
+
+Hugs a user
+
+**Parameters:**
+
+- **(optional)** User: user to hug **(defaults to self)**
+
+---
+
+### `/paint`
+
+Paints a picture for a user utilizing the openai dalle api
+
+**Parameters:**
+
+- **(required)** String: prompt text
+
+---
+
+### `/version`
+
+Sends the current build version and a link to the changelogs
+
+---
+
+### `/talk`
+
+Allows a user to talk to mitsuri utilizing the openai davinci text model
+
+**Parameters:**
+
+- **(required)** String: text to say to mitsuri
+
+---
+
+### `/ping`
+
+Allows the user to retrieve the heartbeat and roundtrip pings of mitsuri
+
+**Parameters:**
+
+- **(required)** String selector:
+  - Heartbeat
+  - Roundtrip
