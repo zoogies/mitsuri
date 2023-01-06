@@ -72,6 +72,16 @@ Hugs a user
 
 ---
 
+### `/kiss`
+
+Kiss a user with a random gif
+
+**Parameters:**
+
+- **(optional)** User: user to kiss **(defaults to none)**
+
+---
+
 ### `/paint`
 
 Paints a picture for a user utilizing the openai dalle api
@@ -110,10 +120,4 @@ Allows a user to talk to mitsuri utilizing a wrapper for the conversational chat
 
 ### `/ping`
 
-Allows the user to retrieve the heartbeat and roundtrip pings of mitsuri
-
-**Parameters:**
-
-- **(required)** String selector:
-  - Heartbeat
-  - Roundtrip
+Returns to the user the heartbeat and roundtrip pings of mitsuri in ms
