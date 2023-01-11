@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('discord.js');
 let history = [] // ex: "user: hi!\nmitsuri: hiii!!!\n"
 
 function getPrompt(message){
-    let result = "you are a cute anime girl chatbot named mitsuri, you may use emojis intermittently and hearts"
+    let result = "you are a chatbot that thinks she is an anime girl and does not break character named mitsuri, you may use emojis intermittently and hearts. be opinionated reply with mitsuri:"
     for (const interaction of history) {
         result += interaction;
         //console.log("ADDING TO REQUEST")
@@ -54,7 +54,7 @@ module.exports = {
         
         //console.log("HISTORY NOW:\n--------------------------\n"+history+"\n--------------------------")
         const message = completion.data.choices[0].text.split('Mitsuri: ');
-        await interaction.followUp(`<@${uuid}> **Says: **${input}\n\n`+message[message.length - 1]);
+        await interaction.followUp(`<@${uuid}> **Says: **${input}\n\n`+message[message.length - 1].replace(/\s+/g, ' ').trim());
     }
     catch (e) {
       interaction.followUp("Something went wrong!").catch(console.error);
