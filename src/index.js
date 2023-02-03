@@ -29,14 +29,15 @@ else{
 	console.log(">> OPENAI_API_KEY LOADED");
 }
 
+// build our client
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
 // openai post init setup
 const openai = new OpenAIApi(configuration);
 module.exports = {
 	openai,
+	client
 }; // allow this openai object to be accessed from our slash commands
-
-// build our client
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
@@ -55,6 +56,7 @@ client.once(Events.ClientReady, () => {
 	rpc = 'with https://zoogies.live servers 😎';
 	client.user.setActivity(rpc);
 	console.log('>> RPC set -> Playing '+rpc);
+	console.log('>> Being wholesome in '+client.guilds.cache.size.toString()+' guilds')
 });
 
 client.on(Events.InteractionCreate, async interaction => {
