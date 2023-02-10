@@ -1,10 +1,11 @@
 {
   "name": "mitsuri",
-  "version": "2.6.2",
+  "version": "2.7.0",
   "description": "A custom discord bot capable of much tomfoolery",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "NODE_ENV=development node index.js",
+    "dev-push": "NODE_ENV=development node deploy-commands.js"
   },
   "author": "Ryan Zmuda",
   "license": "ISC",
