@@ -52,6 +52,27 @@ Sends a random art prompt
 
 ---
 
+### `/giphy`
+
+Sends a giphy gif served through the giphy api
+
+**Parameters:**
+
+- **(optional)** String Selector: Type **(defaults to Gif)**
+  - Gif
+  - Sticker
+- **(optional)** String Selector: Endpoint **(defaults to Random)**
+  - Random
+- **(optional)** String Selector: Rating **(defaults to R)**
+  - G
+  - PG
+  - PG-13
+  - R
+- **(optional)** String: Tag **(defaults to nothing)**
+  - Text you can enter tags in for the query
+
+---
+
 ### `/dap`
 
 Daps a user up
