@@ -28,7 +28,7 @@ module.exports = {
                 .setDescription('The explicitivity of the result, defaults to rated R')
                 .setRequired(false)
                 .addChoices(
-                    { name: 'G', value: 'r' },
+                    { name: 'G', value: 'g' },
                     { name: 'PG', value: 'pg' },
                     { name: 'PG-13', value: 'pg-13' },
                     { name: 'R', value: 'r' },
