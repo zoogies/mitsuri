@@ -6,7 +6,7 @@ const fs = require('node:fs');
 const env = process.env.NODE_ENV || 'development';
 let token;
 let clientId;
-if(env == 'development'){
+if(env === 'development'){
 	console.log(">> launching in development mode");
 	token = require('./config-dev.json')['token'];
 	clientId = require('./config-dev.json')['clientId'];
