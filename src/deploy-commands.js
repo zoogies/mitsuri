@@ -13,8 +13,8 @@ if(env === 'development'){
 }
 else{
 	console.log(">> launching in production mode");
-	token = require('./config.json')['token'];
-	clientId = require('./config.json')['clientId'];
+	token = require('/usr/mitsuri/config.json')['token'];
+	clientId = require('/usr/mitsuri/config.json')['clientId'];
 }
 
 const commands = [];

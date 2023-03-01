@@ -1,12 +1,13 @@
 {
   "name": "mitsuri",
-  "version": "2.8.0",
+  "version": "2.8.1",
   "description": "A custom discord bot capable of much tomfoolery",
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development node index.js",
     "dev-push": "NODE_ENV=development node deploy-commands.js",
-    "push": "NODE_ENV=production node deploy-commands.js"
+    "push": "NODE_ENV=production node deploy-commands.js",
+    "prod": "node index.js"
   },
   "author": "Ryan Zmuda",
   "license": "ISC",
