@@ -12,14 +12,6 @@ let token;
 let configuration;
 let giphy_key;
 
-const { exec } = require('child_process');
-
-exec('npm run push', (error) => {
-  if (error) {
-    console.error(`Error: ${error}`);
-  }
-});
-
 if(env == 'development'){
 	// header
 	console.log(">> launching in development mode");
@@ -37,6 +29,15 @@ if(env == 'development'){
 	console.log(">> GIPHY KEY LOADED")
 }
 else{
+	// push slash commands for prod on first new run
+	const { exec } = require('child_process');
+
+	exec('npm run push', (error) => {
+	  if (error) {
+		console.error(`Error: ${error}`);
+	  }
+	});
+
 	// header
 	console.log(">> launching in production mode");
 	token = require('/usr/mitsuri/config.json')['token'];
