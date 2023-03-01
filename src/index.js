@@ -12,6 +12,14 @@ let token;
 let configuration;
 let giphy_key;
 
+const { exec } = require('child_process');
+
+exec('npm run push', (error) => {
+  if (error) {
+    console.error(`Error: ${error}`);
+  }
+});
+
 if(env == 'development'){
 	// header
 	console.log(">> launching in development mode");
