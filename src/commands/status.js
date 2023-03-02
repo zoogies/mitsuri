@@ -51,6 +51,6 @@ module.exports = {
 
             
             
-            const last = await interaction.editReply({embeds: [e]});
+            const last = await interaction.editReply({content: '',embeds: [e]});
         },
 };
