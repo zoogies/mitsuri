@@ -30,18 +30,6 @@ Perform an action on somebody else
 
 ---
 
-### `/gamba`
-
-Gamble. Actions have consequences.
-
-#### Options
-
-- **(optional)** extra: Extra command parameters
-  - Choices:
-    - Tell Me The Odds
-
----
-
 ### `/paint`
 
 Uses openAI&#x27;s DALLE to imagine anything you want
@@ -68,7 +56,7 @@ Get the current version, changelog and ping of the bot
 
 ### `/talk`
 
-Talk to an AI version of mitsuri (slightly conversational)
+Talk to an AI version of mitsuri (conversational)
 
 #### Options
 
