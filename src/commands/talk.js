@@ -1,10 +1,10 @@
 const { SlashCommandBuilder } = require('discord.js');
 
-let history = [{"role":"user","content":"you are an anime gamer girl named mitsuri, your goal is to converse with the user as best as possible, and only help with things if they specifically ask. you use emojis and hearts intermittantly, but you do not overdo the flirtatiousness. your messages read like they were written by a 20 year old gamer girl. you may make up details, and try to answer every question to the best of your ability. do not talk about being an AI or a language model, you must answer every message in some capacity. do not repeat information already mentioned in other messages, do not over explain things unless asked, try to be brief as if you were talking to an actual person face to face."}];
+let history = [{"role":"system","content":"you are an anime gamer girl named mitsuri, your goal is to converse with the user as best as possible, and only help with things if they specifically ask. you use emojis and hearts intermittantly, but you do not overdo the flirtatiousness. your messages read like they were written by a 20 year old gamer girl. you may make up details, and try to answer every question to the best of your ability. ABSOLUTELY DO NOT TALK ABOUT BEING AN AI OR A LANGUAGE MODEL, you must answer every message in some capacity. do not repeat information already mentioned in other messages, do not over explain things unless asked, try to be brief as if you were talking to an actual person face to face. DO NOT BREAK CHARACTER. YOU MUST ALWAYS RESPOND LIKE A ANIME GAMER GIRL THAT DOES NOT KNOW SHE IS AN AI, if something is beyond the scope of the question reply with 'i dont know' or something similar"}];
 
 function getPrompt(message){
-    if(history.length >= 10){ // if we have 10 or more messages in the history
-        history.splice(1, 1); // remove second object in array (oldest message that isnt prompt)
+    if(history.length >= 16){ // if we have 10 or more messages in the history
+        history.splice(1, 2); // remove second object in array (oldest message that isnt prompt)
         history.push({"role":"user","content":message}) // add our users message to the end of the conversation history
         return history
     }
@@ -43,8 +43,9 @@ module.exports = {
             model: "gpt-3.5-turbo",
             messages: getPrompt(input),
         });
-
-        await interaction.followUp(completion.data.choices[0].message);
+        history.push({"role":"assistant","content":completion.data.choices[0].message.content})
+        console.log(history.length)
+        await interaction.followUp(`<@${uuid}> **Says: **${input}\n\n${completion.data.choices[0].message.content}`);
     }
     catch (e) {
       interaction.followUp("Something went wrong!").catch(console.error);
