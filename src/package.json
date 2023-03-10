@@ -7,7 +7,8 @@
     "dev": "NODE_ENV=development node index.js",
     "dev-push": "NODE_ENV=development node deploy-commands.js",
     "push": "NODE_ENV=production node deploy-commands.js",
-    "prod": "node index.js"
+    "prod": "node index.js",
+    "docs": "node generate-docs.js"
   },
   "author": "Ryan Zmuda",
   "license": "ISC",
