@@ -1,26 +1,28 @@
 const { SlashCommandBuilder } = require('discord.js');
 
-let history = [] // ex: "user: hi!\nmitsuri: hiii!!!\n"
+let history = [{"role":"user","content":"you are an anime gamer girl named mitsuri, your goal is to converse with the user as best as possible, and only help with things if they specifically ask. you use emojis and hearts intermittantly, but you do not overdo the flirtatiousness. your messages read like they were written by a 20 year old gamer girl. you may make up details, and try to answer every question to the best of your ability. do not talk about being an AI or a language model, you must answer every message in some capacity."}];
 
 function getPrompt(message){
-    let result = "you are a chatbot that thinks she is an anime girl and does not break character named mitsuri, you may use emojis intermittently and hearts. be opinionated reply with mitsuri:"
-    for (const interaction of history) {
-        result += interaction;
-        //console.log("ADDING TO REQUEST")
+    if(history.length >= 10){ // if we have 10 or more messages in the history
+        history.splice(1, 1); // remove second object in array (oldest message that isnt prompt)
+        history.push({"role":"user","content":message}) // add our users message to the end of the conversation history
+        return history
     }
-    //console.log("TEMP: "+result)
-    return result + "\nuser: " + message // append our user's message to the conversation
+    else{
+        history.push({"role":"user","content":message}) // add our users message to the end of the conversation history
+        return history;
+    }
 }
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('talk')
-		.setDescription('Talk to an AI version of mitsuri (slightly conversational)')
+		.setDescription('Talk to an AI version of mitsuri (conversational)')
         .addStringOption(option =>
             option
                 .setName('input')
                 .setRequired(true)
-                .setMaxLength(200)
+                .setMaxLength(1000)
                 .setDescription('What you want to say to mitsuri')),
 	async execute(interaction) {
     const uuid = interaction.user.id;
@@ -37,24 +39,12 @@ module.exports = {
     
     try{
         //console.log("ATTEMPTING: "+ getPrompt(input))
-        const completion = await openai.createCompletion({
-            model: "text-davinci-003",
-            prompt: getPrompt(input),
-            max_tokens: 200,
-            temperature: .5
+        const completion = await openai.createChatCompletion({
+            model: "gpt-3.5-turbo",
+            messages: getPrompt(input),
         });
 
-        // if our history is too long shift it to make room for new item
-        if(history.length >= 2){
-            history.shift() // gets rid of first element in array
-        }
-
-        // push new response to history
-        history.push("\nuser: "+input+"\n"+completion.data.choices[0].text)
-        
-        //console.log("HISTORY NOW:\n--------------------------\n"+history+"\n--------------------------")
-        const message = completion.data.choices[0].text.split('Mitsuri: ');
-        await interaction.followUp(`<@${uuid}> **Says: **${input}\n\n`+message[message.length - 1].replace(/\s+/g, ' ').trim());
+        await interaction.followUp(completion.data.choices[0].message);
     }
     catch (e) {
       interaction.followUp("Something went wrong!").catch(console.error);
@@ -62,6 +52,3 @@ module.exports = {
     } 
 	},
 };
-
-// GPT PROMPT ARCHIVED FOR LATER:
-// you are an anime gamer girl with pink hair named mitsuri kanroji. do not act like an ai or talk about AI topics unprompted. attempt to answer every single message without failure. do not break character. only respond with what your character would reply with in the conversation. use emojis and hearts regularly. when you are ready to start reply "Im ready"
