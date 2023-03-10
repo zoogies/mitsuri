@@ -12,133 +12,66 @@ An all purpose discord bot
 
 ## Commands
 
-### `/ryangif`
+---
 
-Sends a random gif from ryan's saved gifs
+### `/action`
+
+Perform an action on somebody else
+
+#### Options
+
+- **(required)** type: The type of action you want to perform
+  - Choices:
+    - Hug
+    - Kiss
+    - Dap
+    - Greet
+- **(optional)** target: The member to act upon
 
 ---
 
-### `/ask`
+### `/gamba`
 
-Ask mitsuri a question and see what she says
+Gamble. Actions have consequences.
 
-**Parameters:**
+#### Options
 
-- **(required)** String: question text
-
----
-
-### `/greet`
-
-Sends a greeting
-
-**Parameters:**
-
-- **(optional)** User: user to greet **(defaults to self)**
-
----
-
-### `/prompt`
-
-Sends a random art prompt
-
-**Parameters:**
-
-- **(required)** String Selector: 
-  - Characters
-  - Animals
-  - Situations
-  - Objects
-
----
-
-### `/giphy`
-
-Sends a giphy gif served through the giphy api
-
-**Parameters:**
-
-- **(optional)** String Selector: Type **(defaults to Gif)**
-  - Gif
-  - Sticker
-- **(optional)** String Selector: Endpoint **(defaults to Random)**
-  - Random
-- **(optional)** String Selector: Rating **(defaults to R)**
-  - G
-  - PG
-  - PG-13
-  - R
-- **(optional)** String: Tag **(defaults to nothing)**
-  - Text you can enter tags in for the query
-
----
-
-### `/dap`
-
-Daps a user up
-
-**Parameters:**
-
-- **(optional)** User: user to dap **(defaults to self)**
-
----
-
-### `/hug`
-
-Hugs a user
-
-**Parameters:**
-
-- **(optional)** User: user to hug **(defaults to self)**
-
----
-
-### `/kiss`
-
-Kiss a user with a random gif
-
-**Parameters:**
-
-- **(optional)** User: user to kiss **(defaults to none)**
+- **(optional)** extra: Extra command parameters
+  - Choices:
+    - Tell Me The Odds
 
 ---
 
 ### `/paint`
 
-Paints a picture for a user utilizing the openai dalle api
+Uses openAI&#x27;s DALLE to imagine anything you want
 
-**Parameters:**
+#### Options
 
-- **(required)** String: prompt text
-
----
-
-### `/version`
-
-Sends the current build version and a link to the changelogs
+- **(required)** prompt: The prompt you want to generate an image based off of
 
 ---
 
-### `/oldtalk`
+### `/ryangif`
 
-Allows a user to talk to mitsuri utilizing the openai davinci text model which is non conversational
+Sends a random gif from ryan&#x27;s saved gifs
 
-**Parameters:**
 
-- **(required)** String: text to say to mitsuri
+---
+
+### `/status`
+
+Get the current version, changelog and ping of the bot
+
 
 ---
 
 ### `/talk`
 
-Allows a user to talk to mitsuri utilizing a wrapper for the conversational chatgpt
+Talk to an AI version of mitsuri (slightly conversational)
 
-**Parameters:**
+#### Options
 
-- **(required)** String: text to say to mitsuri
- 
+- **(required)** input: What you want to say to mitsuri
+
 ---
-
-### `/ping`
-
-Returns to the user the heartbeat and roundtrip pings of mitsuri in ms
