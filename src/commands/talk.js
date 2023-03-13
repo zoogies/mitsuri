@@ -44,7 +44,6 @@ module.exports = {
             messages: getPrompt(input),
         });
         history.push({"role":"assistant","content":completion.data.choices[0].message.content})
-        console.log(history.length)
         await interaction.followUp(`<@${uuid}> **Says: **${input}\n\n${completion.data.choices[0].message.content}`);
     }
     catch (e) {
