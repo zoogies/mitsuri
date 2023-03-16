@@ -1,13 +1,13 @@
 {
   "name": "mitsuri",
-  "version": "2.10.0",
+  "version": "2.11.0",
   "description": "A custom discord bot capable of much tomfoolery",
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development node index.js",
     "dev-push": "NODE_ENV=development node deploy-commands.js",
     "push": "NODE_ENV=production node deploy-commands.js",
-    "prod": "node index.js",
+    "prod": "node --no-warnings index.js",
     "docs": "node generate-docs.js"
   },
   "author": "Ryan Zmuda",
@@ -17,7 +17,8 @@
     "discord.js": "^14.0.2",
     "moment": "^2.29.4",
     "moment-duration-format": "^2.3.2",
-    "openai": "^3.1.0"
+    "openai": "^3.1.0",
+    "pocketbase": "^0.12.1"
   },
   "devDependencies": {
     "handlebars": "^4.7.7"

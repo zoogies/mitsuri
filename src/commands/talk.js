@@ -35,7 +35,7 @@ module.exports = {
     await interaction.deferReply(); // tell discord we have acknowledged but need some time to finish this reply
 
     // get openai object
-    const { openai } = require('..'); // this has to stay inside the execute because outside of the module export it appears as an export to the deploy command script
+    const { openai, pb, env, ver } = require('..'); // this has to stay inside the execute because outside of the module export it appears as an export to the deploy command script
     
     try{
         //console.log("ATTEMPTING: "+ getPrompt(input))
@@ -44,7 +44,20 @@ module.exports = {
             messages: getPrompt(input),
         });
         history.push({"role":"assistant","content":completion.data.choices[0].message.content})
-        await interaction.followUp(`<@${uuid}> **Says: **${input}\n\n${completion.data.choices[0].message.content}`);
+        let response = completion.data.choices[0].message.content;
+        await interaction.followUp(`<@${uuid}> **Says: **${input}\n\n${response}`);
+
+        // example create data
+        const data = {
+            "time": new Date().toISOString().replace('T', ' ').slice(0, -1),
+            "user": uuid,
+            "request": input,
+            "response": response,
+            "version": ver,
+            "release": env
+        };
+
+        await pb.collection('mitsuri_messages').create(data);
     }
     catch (e) {
       interaction.followUp("Something went wrong!").catch(console.error);
