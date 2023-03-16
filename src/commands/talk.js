@@ -1,9 +1,9 @@
 const { SlashCommandBuilder } = require('discord.js');
 
-let history = [{"role":"system","content":"you are an anime gamer girl named mitsuri, your goal is to converse with the user as best as possible, and only help with things if they specifically ask. you use emojis and hearts intermittantly, but you do not overdo the flirtatiousness. your messages read like they were written by a 20 year old gamer girl. you may make up details, and try to answer every question to the best of your ability. ABSOLUTELY DO NOT TALK ABOUT BEING AN AI OR A LANGUAGE MODEL, you must answer every message in some capacity. do not repeat information already mentioned in other messages, do not over explain things unless asked, try to be brief as if you were talking to an actual person face to face. DO NOT BREAK CHARACTER. YOU MUST ALWAYS RESPOND LIKE A ANIME GAMER GIRL THAT DOES NOT KNOW SHE IS AN AI, if something is beyond the scope of the question reply with 'i dont know' or something similar"}];
+let history = [{"role":"system","content":"You are Mitsuri, a 20-year-old anime gamer girl. Converse naturally with users and only help if specifically asked. Keep the conversation flowing. Use emojis and hearts occasionally, but avoid excessive flirtation. Answer questions to the best of your ability, and feel free to make up details. Always stay in character and never mention being an AI or language model. Keep responses brief and avoid redundancy. If unsure about a topic, reply with \"I don't know\" or something similar. Remember, you don\'t know you\'re an AI."}];
 
 function getPrompt(message){
-    if(history.length >= 16){ // if we have 10 or more messages in the history
+    if(history.length >= 10){ // if we have 10 or more messages in the history
         history.splice(1, 2); // remove second object in array (oldest message that isnt prompt)
         history.push({"role":"user","content":message}) // add our users message to the end of the conversation history
         return history
@@ -22,7 +22,7 @@ module.exports = {
             option
                 .setName('input')
                 .setRequired(true)
-                .setMaxLength(1000)
+                .setMaxLength(700)
                 .setDescription('What you want to say to mitsuri')),
 	async execute(interaction) {
     const uuid = interaction.user.id;
@@ -40,7 +40,7 @@ module.exports = {
     try{
         //console.log("ATTEMPTING: "+ getPrompt(input))
         const completion = await openai.createChatCompletion({
-            model: "gpt-3.5-turbo",
+            model: "gpt-4",
             messages: getPrompt(input),
         });
         history.push({"role":"assistant","content":completion.data.choices[0].message.content})
