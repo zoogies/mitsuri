@@ -52,7 +52,11 @@ else{
 	// console.log(">> OPENAI_API_KEY LOADED");
 
 	// login to pocketbase
-	const authData = pb.admins.authWithPassword(require('/usr/mitsuri/config.json')['pb_email'], require('/usr/mitsuri/config.json')['pb_password']);
+	const pb_email = require('/usr/mitsuri/config.json')['pb_email'];
+	const pb_pass = require('/usr/mitsuri/config.json')['pb_password'];
+	console.log("EMAIL: "+pb_email)
+	console.log("PASS: "+pb_pass)
+	const authData = pb.admins.authWithPassword(pb_email, pb_pass);
 }
 
 // build our client
