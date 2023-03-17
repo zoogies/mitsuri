@@ -36,6 +36,8 @@ else {
 		apiKey: configProd.OPENAI_API_KEY
 	});
 
+	const { exec } = require('child_process');
+
 	exec('npm run push', (error) => {
 		if (error) {
 		console.error(`Error: ${error}`);
