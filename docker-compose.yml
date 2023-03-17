@@ -9,6 +9,6 @@ services:
       - 3003:3000
     volumes:
       - type: bind
-        source: /home/dietpi/projects/mitsuri
+        source: /usr/mitsuri
         target: /usr/mitsuri
     restart: unless-stopped

@@ -12,50 +12,38 @@ const pb = new PocketBase('https://db.zoogies.live');
 
 // get the env and read from our config accordingly
 const env = process.env.NODE_ENV || 'production';
-let token;
-let configuration;
+let token, configuration;
 
-if(env == 'development'){
-	// header
+if (env === 'development') {
 	console.log(">> launching in development mode");
-	token = require('./config-dev.json')['token'];
-	//console.log(">> TOKEN: "+token);
 
-	// openai object
+	const configDev = require('./config-dev.json');
+	token = configDev.token;
 	configuration = new Configuration({
-		apiKey: require('./config-dev.json')['OPENAI_API_KEY'],
+		apiKey: configDev.OPENAI_API_KEY
 	});
 	console.log(">> OPENAI_API_KEY LOADED");
 
-	// login to pocketbase
-	const authData = pb.admins.authWithPassword(require('./config-dev.json')['pb_email'], require('./config-dev.json')['pb_password']);
-	console.log(">> Authenticated with db.zoogies.live")
-}
-else{
-	// push slash commands for prod on first new run
-	const { exec } = require('child_process');
+	const authData = pb.admins.authWithPassword(configDev.pb_email, configDev.pb_password);
+	console.log(">> Authenticated with db.zoogies.live");
+} 
+else {
+	console.log(">> launching in production mode");
+
+	const configProd = require('/usr/mitsuri/config.json');
+	token = configProd.token;
+	configuration = new Configuration({
+		apiKey: configProd.OPENAI_API_KEY
+	});
 
 	exec('npm run push', (error) => {
-	  if (error) {
+		if (error) {
 		console.error(`Error: ${error}`);
-	  }
+		}
 	});
 
-	// header
-	console.log(">> launching in production mode");
-	token = require('/usr/mitsuri/config.json')['token'];
-
-	// openai object
-	configuration = new Configuration({
-		apiKey: require('/usr/mitsuri/config.json')['OPENAI_API_KEY'],
-	});
-	// console.log(">> OPENAI_API_KEY LOADED");
-
-	// login to pocketbase
-	const pb_email = require('/usr/mitsuri/config.json')['pb_email'];
-	const pb_pass = require('/usr/mitsuri/config.json')['pb_password'];
-	console.log("EMAIL: "+pb_email)
-	console.log("PASS: "+pb_pass)
+	const pb_email = configProd.pb_email;
+	const pb_pass = configProd.pb_password;
 	const authData = pb.admins.authWithPassword(pb_email, pb_pass);
 }
 
