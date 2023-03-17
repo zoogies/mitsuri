@@ -8,7 +8,5 @@ services:
     ports:
       - 3003:3000
     volumes:
-      - type: bind
-        source: /usr/mitsuri
-        target: /usr/mitsuri
+      - /usr/mitsuri:/usr/mitsuri
     restart: unless-stopped
