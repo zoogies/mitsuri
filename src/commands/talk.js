@@ -54,7 +54,8 @@ module.exports = {
             "request": input,
             "response": response,
             "version": ver,
-            "release": env
+            "release": env,
+            "usage": completion.data.usage.total_tokens
         };
 
         await pb.collection('mitsuri_messages').create(data);
