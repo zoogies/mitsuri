@@ -22,7 +22,7 @@ module.exports = {
             option
                 .setName('input')
                 .setRequired(true)
-                .setMaxLength(700)
+                .setMaxLength(1000)
                 .setDescription('What you want to say to mitsuri')),
 	async execute(interaction) {
     const uuid = interaction.user.id;
@@ -37,6 +37,8 @@ module.exports = {
     // get openai object
     const { openai, pb, env, ver } = require('..'); // this has to stay inside the execute because outside of the module export it appears as an export to the deploy command script
     
+    let response_header = `<@${uuid}> **Says: **${input}\n\n`;
+
     try{
         //console.log("ATTEMPTING: "+ getPrompt(input))
         const completion = await openai.createChatCompletion({
@@ -45,7 +47,34 @@ module.exports = {
         });
         history.push({"role":"assistant","content":completion.data.choices[0].message.content})
         let response = completion.data.choices[0].message.content;
-        await interaction.followUp(`<@${uuid}> **Says: **${input}\n\n${response}`);
+
+        const lines = response.split(/\n/);
+        const chunks = [];
+        let currentChunk = "";
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            if (currentChunk.length + line.length + 1 < 2000) { // add 1 for the newline character
+                currentChunk += `${line}\n`; // add the line to the current chunk
+            } else {
+                chunks.push(currentChunk); // push the current chunk to the array of chunks
+                currentChunk = `${line}\n`; // start a new chunk with the current line
+            }
+        }
+
+        if (currentChunk.length > 0) {
+            chunks.push(currentChunk); // push the final chunk to the array of chunks
+        }
+
+        for (let i = 0; i < chunks.length; i++) {
+            const chunk = chunks[i];
+            if (i === 0) {
+                interaction.followUp(response_header+chunk); // Send the first chunk as a reply to the slash command
+            } else {
+                interaction.followUp(chunk); // Send subsequent chunks as follow-up messages
+            }
+        }
+            
 
         // example create data
         const data = {
