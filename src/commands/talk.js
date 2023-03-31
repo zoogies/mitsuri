@@ -74,7 +74,7 @@ module.exports = {
                 interaction.followUp(chunk); // Send subsequent chunks as follow-up messages
             }
         }
-            
+
 
         // example create data
         const data = {
@@ -90,7 +90,7 @@ module.exports = {
         await pb.collection('mitsuri_messages').create(data);
     }
     catch (e) {
-      interaction.followUp("Something went wrong!"+"\n\n```"+e+"\n```").catch(console.error);
+      interaction.followUp(response_header+"Something went wrong!"+"\n\n```"+e+"\n```").catch(console.error);
       console.log(e)
     } 
 	},
