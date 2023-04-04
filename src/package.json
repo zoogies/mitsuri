@@ -1,6 +1,6 @@
 {
   "name": "mitsuri",
-  "version": "2.12.6",
+  "version": "2.13.6",
   "description": "A custom discord bot capable of much tomfoolery",
   "main": "index.js",
   "scripts": {

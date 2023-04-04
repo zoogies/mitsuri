@@ -46,7 +46,7 @@ module.exports = {
             messages: getPrompt(input),
         });
         history.push({"role":"assistant","content":completion.data.choices[0].message.content})
-        let response = completion.data.choices[0].message.content;
+        let response = response_header + completion.data.choices[0].message.content;
 
         const lines = response.split(/\n/);
         const chunks = [];
@@ -69,7 +69,7 @@ module.exports = {
         for (let i = 0; i < chunks.length; i++) {
             const chunk = chunks[i];
             if (i === 0) {
-                interaction.followUp(response_header+chunk); // Send the first chunk as a reply to the slash command
+                interaction.followUp(chunk); // Send the first chunk as a reply to the slash command
             } else {
                 interaction.followUp(chunk); // Send subsequent chunks as follow-up messages
             }
