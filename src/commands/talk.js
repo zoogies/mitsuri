@@ -84,7 +84,8 @@ module.exports = {
             "response": response,
             "version": ver,
             "release": env,
-            "usage": completion.data.usage.total_tokens
+            "usage": completion.data.usage.total_tokens,
+            "model": "gpt-4"
         };
 
         await pb.collection('mitsuri_messages').create(data);
