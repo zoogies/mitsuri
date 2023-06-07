@@ -30,6 +30,13 @@ Perform an action on somebody else
 
 ---
 
+### `/leaderboard`
+
+Show a leaderboard of the top token spenders
+
+
+---
+
 ### `/paint`
 
 Uses openAI&#x27;s DALLE to imagine anything you want
