@@ -12,7 +12,7 @@ const pb = new PocketBase('https://db.zoogies.live');
 
 // get the env and read from our config accordingly
 const env = process.env.NODE_ENV || 'production';
-let token, configuration;
+let token, configuration, elevenTOKEN;
 
 if (env === 'development') {
 	console.log(">> launching in development mode");
@@ -23,7 +23,10 @@ if (env === 'development') {
 		apiKey: configDev.OPENAI_API_KEY
 	});
 	console.log(">> OPENAI_API_KEY LOADED");
-
+	
+	elevenTOKEN = configDev.eleven_api_key;
+	console.log(">> ELEVEN API KEY LOADED");
+	
 	const authData = pb.admins.authWithPassword(configDev.pb_email, configDev.pb_password);
 	console.log(">> Authenticated with db.zoogies.live");
 } 
@@ -35,6 +38,8 @@ else {
 	configuration = new Configuration({
 		apiKey: configProd.OPENAI_API_KEY
 	});
+
+	console.log(">> ELEVEN API KEY LOADED");
 
 	const { exec } = require('child_process');
 
@@ -63,7 +68,8 @@ module.exports = {
 	client,
 	pb,
 	env,
-	ver
+	ver,
+	elevenTOKEN
 }; // allow this openai object to be accessed from our slash commands
 
 client.commands = new Collection();
@@ -72,7 +78,10 @@ const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('
 
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file);
+	// console.log(">> Loading command "+filePath);
 	const command = require(filePath);
+	// console.log(">> ",command.data.name)
+	// console.log(">> ",command.data)
 	client.commands.set(command.data.name, command);
 }
  
