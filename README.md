@@ -6,10 +6,6 @@ An all purpose discord bot
 
 ---
 
-## [Click To Invite To A Server](https://discord.com/api/oauth2/authorize?client_id=969343378535903262&scope=applications.commands)
-
----
-
 ## Commands
 
 ---
