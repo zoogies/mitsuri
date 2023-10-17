@@ -4,11 +4,7 @@ An all purpose discord bot
 
 ![mitsuri](https://media.discordapp.net/attachments/790703174746636328/1040057921947578408/tumblr_4ddb73070eb53c6a0b0dea43cc2781cd_c1cecc63_1280_cropped.png)
 
----
-
 ## Commands
-
----
 
 ### `/action`
 
@@ -23,13 +19,6 @@ Perform an action on somebody else
     - Dap
     - Greet
 - **(optional)** target: The member to act upon
-
----
-
-### `/leaderboard`
-
-Show a leaderboard of the top token spenders
-
 
 ---
 

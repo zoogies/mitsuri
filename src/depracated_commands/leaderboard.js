@@ -2,6 +2,8 @@ const { SlashCommandBuilder } = require('discord.js');
 const axios = require('axios');
 const { EmbedBuilder } = require('discord.js');
 
+// TODO: needs updated because input/output costs different and I cant be asked rn https://openai.com/pricing
+
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -38,6 +40,7 @@ module.exports = {
 
         let ranking = '';
         const costPer1000Tokens = 0.03;
+        const costPer1000Tokens35TURBO = 0.03;
         let totalTokens = 0;
 
         userUsageList.forEach((userUsage, index) => {

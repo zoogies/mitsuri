@@ -28,7 +28,7 @@ module.exports = {
         let response_header = `<@${uuid}> **Says: **${input}\n\n`;
 
         try{
-            const completion = await getResponse(uuid,input,"gpt-4"); // TODO: allow user to specify model, TODO: update leaderboard to reflect this mixing of gpt3 tokens
+            const completion = await getResponse(uuid,input,"gpt-3.5-turbo"); // TODO: allow user to specify model, TODO: update leaderboard to reflect this mixing of gpt3 tokens
             let response = response_header + completion;
 
             const lines = response.split(/\n/);
