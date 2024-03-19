@@ -1,8 +1,10 @@
 # mitsuri
 
-An all purpose discord bot
+An all purpose discord bot (now private, but open source!)
 
-![mitsuri](https://media.discordapp.net/attachments/790703174746636328/1040057921947578408/tumblr_4ddb73070eb53c6a0b0dea43cc2781cd_c1cecc63_1280_cropped.png)
+<p align="left">
+  <img src="https://images-ng.pixai.art/images/orig/8b12628b-31fb-4feb-8a2e-612fed914054" height="400">
+</p>
 
 ## Commands
 
@@ -29,6 +31,19 @@ Uses openAI&#x27;s DALLE to imagine anything you want
 #### Options
 
 - **(required)** prompt: The prompt you want to generate an image based off of
+- **(optional)** resolution: The resolution of the output image
+  - Choices:
+    - 1024x1024
+    - 1792x1024
+    - 1024x1792
+- **(optional)** style: The style of the output image
+  - Choices:
+    - vivid
+    - natural
+- **(optional)** definition: The definition of the output image
+  - Choices:
+    - standard
+    - HD
 
 ---
 
