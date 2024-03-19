@@ -55,7 +55,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setColor(0xf542d1)
             .setTitle(`Token Usage Leaderboard`)
-            .setAuthor({ name: 'Mitsuri', iconURL: 'https://media.discordapp.net/attachments/790703174746636328/1040057921947578408/tumblr_4ddb73070eb53c6a0b0dea43cc2781cd_c1cecc63_1280_cropped.png', url: 'https://github.com/yoyolick/mitsuri' })
+            .setAuthor({ name: 'Mitsuri', iconURL: 'https://media.discordapp.net/attachments/790703174746636328/1040057921947578408/tumblr_4ddb73070eb53c6a0b0dea43cc2781cd_c1cecc63_1280_cropped.png', url: 'https://github.com/zoogies/mitsuri' })
             .setDescription(`Top drainers of Ryan's wallet`)
             .setThumbnail('https://media.discordapp.net/attachments/790703174746636328/1040057921947578408/tumblr_4ddb73070eb53c6a0b0dea43cc2781cd_c1cecc63_1280_cropped.png')
             .addFields(

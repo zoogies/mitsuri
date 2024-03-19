@@ -12,7 +12,7 @@ module.exports = {
             const pkg = require("../package.json")
             let notes = "";
             let releasedate = ""
-            await axios.get('https://api.github.com/repos/yoyolick/mitsuri/releases/latest')
+            await axios.get('https://api.github.com/repos/zoogies/mitsuri/releases/latest')
             .then(response => {
                 const releaseNotes = response.data.body;
                 releasedate = response.data.published_at;
@@ -36,8 +36,8 @@ module.exports = {
             const e = new EmbedBuilder()
                 .setColor(0xf542d1)
                 .setTitle(`build v${pkg.version}`)
-                .setURL('https://github.com/yoyolick/mitsuri/releases/latest')
-                .setAuthor({ name: 'Mitsuri', iconURL: 'https://media.discordapp.net/attachments/790703174746636328/1040057921947578408/tumblr_4ddb73070eb53c6a0b0dea43cc2781cd_c1cecc63_1280_cropped.png', url: 'https://github.com/yoyolick/mitsuri' })
+                .setURL('https://github.com/zoogies/mitsuri/releases/latest')
+                .setAuthor({ name: 'Mitsuri', iconURL: 'https://media.discordapp.net/attachments/790703174746636328/1040057921947578408/tumblr_4ddb73070eb53c6a0b0dea43cc2781cd_c1cecc63_1280_cropped.png', url: 'https://github.com/zoogies/mitsuri' })
                 .setDescription(`Running on [zoogies.live](https://zoogies.live) for \`${duration}\``)
                 .setThumbnail('https://media.discordapp.net/attachments/790703174746636328/1040057921947578408/tumblr_4ddb73070eb53c6a0b0dea43cc2781cd_c1cecc63_1280_cropped.png')
                 .addFields(
