@@ -55,7 +55,7 @@ else {
 }
 
 // build our client
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
 // get version from package.json
 const pkg = require("./package.json")
@@ -105,6 +105,88 @@ client.on(Events.InteractionCreate, async interaction => {
 	} catch (error) {
 		console.error(error);
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
+});
+
+async function plus_one_uuid_rep(uuid) {
+	// console.log(">> plus_one_uuid_rep called for "+uuid);
+
+	const resultList = await pb.collection('usercache').getList(1, 1, {
+		filter: `uuid="${uuid}"`,
+	});
+
+	// if there is no item, create it with rep 1
+	if(resultList.items.length == 0){
+		await pb.collection('usercache').create({uuid: uuid, rep: 1});
+		return 1;
+	}
+
+	// if there is an item, increment its rep by 1
+	const user = resultList.items[0];
+	const rep = user.rep + 1;
+	await pb.collection('usercache').update(user.id, {rep: rep});
+
+	return rep;
+}
+
+client.on(Events.MessageCreate, async message => {
+	if (message.author.bot) return;
+
+	content = message.content;
+	// if (content.includes("+1") || content.includes("+ 1") || content.includes("+1 ") || content.includes(" +1")) {
+	if (content == "+1") {
+		replied_user = message.mentions.repliedUser;
+		replied_uuid = null;
+		is_reply = replied_user != null;
+		sender_id = message.author.id;
+		rep_content = null
+		// console.log(">> +1 detected from "+sender_id);
+		// console.log(">> is_reply: "+is_reply);
+		// console.log(">> replied_user: "+replied_user);
+
+		if(!is_reply){
+			// detect the message right above it
+			const messages = await message.channel.messages.fetch({ limit: 2 });
+			const lastMessage = messages.last();
+			replied_user = lastMessage.author;
+			replied_uuid = replied_user.id;
+			// console.log(">> lastMessage: "+lastMessage.content);
+			rep_content = lastMessage.content;
+		}
+		else{
+			replied_uuid = replied_user.id;
+
+			const repliedTo = await message.fetchReference();
+			rep_content = repliedTo.content;
+		}
+		// console.log(">> repliedTo: "+rep_content);
+
+		if(replied_user == sender_id){
+			let sass = ['😒', '🙄', '😑', '😠', '😾', '💢'];
+			message.reply("You can't +1 yourself! "+sass[Math.floor(Math.random() * sass.length)]);
+			return;
+		}
+
+		// prep database operation
+		let data = {
+			"sender": sender_id,
+			"recipient": replied_uuid,
+			"sender_vanity_name": message.author.username,
+			"recipient_vanity_name": replied_user.username, // bad naming convention, sue me, im tired
+			"rep_message": rep_content,
+		};
+
+		// perform database operation
+		await pb.collection('rep').create(data);
+		// message.react('👍');
+
+		// get rep count
+		const repCount = await plus_one_uuid_rep(replied_uuid);
+		if(repCount == -1){
+			message.channel.send("Something went wrong! 😢");
+			return;
+		}
+		message.channel.send("<@"+replied_user+"> now has "+repCount+" rep!");
 	}
 });
 
