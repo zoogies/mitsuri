@@ -140,6 +140,9 @@ client.on(Events.MessageCreate, async message => {
 	else if (content.includes("-1")) {
 		delta = -1;
 	}
+	else {
+		return
+	}
 
 	replied_user = message.mentions.repliedUser;
 	replied_uuid = null;
