@@ -133,11 +133,10 @@ client.on(Events.MessageCreate, async message => {
 	if (message.author.bot) return;
 
 	content = message.content;
-	// if (content.includes("+1") || content.includes("+ 1") || content.includes("+1 ") || content.includes(" +1")) {
-	if (content == "+1" ) {
+	if (content.startsWith("+1")) {
 		delta = 1;
 	}
-	else if (content == "-1") {
+	else if (content.startsWith("-1")) {
 		delta = -1;
 	}
 	else {
@@ -152,6 +151,27 @@ client.on(Events.MessageCreate, async message => {
 	// console.log(">> +1 detected from "+sender_id);
 	// console.log(">> is_reply: "+is_reply);
 	// console.log(">> replied_user: "+replied_user);
+
+	// enforce a cooldown
+	const user = await pb.collection('rep').getFirstListItem(`sender="${sender_id}"`, { sort: '-created' });
+	if (user != null) {
+		const userCreatedDate = new Date(user.created);
+		const currentTime = Date.now();
+		
+		const cd = 3600000; // 3600000 ms = 1 hour
+	
+		console.log(">> currentTime: " + currentTime);
+		console.log(">> userCreatedDate: " + userCreatedDate.getTime());
+		console.log(">> diff: " + (currentTime - userCreatedDate.getTime()));
+	
+		// Compare the dates
+		const elapsedTime = currentTime - userCreatedDate.getTime();
+		if (elapsedTime < cd) {
+			const remainingCooldown = Math.ceil((cd - elapsedTime) / 60000); // Convert remaining milliseconds to minutes
+			message.reply("You can only rep once per hour! 😡\nYou are on cooldown for: " + remainingCooldown + " minutes");
+			return;
+		}
+	}
 
 	if(!is_reply){
 		// detect the message right above it
@@ -172,7 +192,7 @@ client.on(Events.MessageCreate, async message => {
 
 	if(replied_user == sender_id){
 		let sass = ['😒', '🙄', '😑', '😠', '😾', '💢'];
-		message.reply("You can't +1 yourself! "+sass[Math.floor(Math.random() * sass.length)]);
+		message.reply("You can't rep yourself! "+sass[Math.floor(Math.random() * sass.length)]);
 		return;
 	}
 
@@ -193,7 +213,7 @@ client.on(Events.MessageCreate, async message => {
 	// get rep count
 	try{
 		const repCount = await delta_uuid_rep(replied_uuid,delta);
-		message.channel.send("<@"+replied_user+"> now has "+repCount+" rep!");
+		message.channel.send("<@"+replied_user+"> now has **"+repCount+"** rep!");
 	}
 	catch(e){
 		message.channel.send("Something went wrong! 😢");
