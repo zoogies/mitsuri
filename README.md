@@ -47,6 +47,23 @@ Uses openAI&#x27;s DALLE to imagine anything you want
 
 ---
 
+### `/rep`
+
+Check you or somebody else&#x27;s rep
+
+#### Options
+
+- **(optional)** target: The member to check
+
+---
+
+### `/repboard`
+
+See a breakdown of server rep
+
+
+---
+
 ### `/ryangif`
 
 Sends a random gif from ryan&#x27;s saved gifs
