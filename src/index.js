@@ -153,24 +153,33 @@ client.on(Events.MessageCreate, async message => {
 	// console.log(">> replied_user: "+replied_user);
 
 	// enforce a cooldown
-	const user = await pb.collection('rep').getFirstListItem(`sender="${sender_id}"`, { sort: '-created' });
-	if (user != null) {
-		const userCreatedDate = new Date(user.created);
-		const currentTime = Date.now();
+	let user = null;
+	try {
+		user = await pb.collection('rep').getFirstListItem(`sender="${sender_id}"`, { sort: '-created' });
+	
+		if (user != null) {
+			const userCreatedDate = new Date(user.created);
+			const currentTime = Date.now();
+			
+			const cd = 3600000; // 3600000 ms = 1 hour
 		
-		const cd = 3600000; // 3600000 ms = 1 hour
-	
-		console.log(">> currentTime: " + currentTime);
-		console.log(">> userCreatedDate: " + userCreatedDate.getTime());
-		console.log(">> diff: " + (currentTime - userCreatedDate.getTime()));
-	
-		// Compare the dates
-		const elapsedTime = currentTime - userCreatedDate.getTime();
-		if (elapsedTime < cd) {
-			const remainingCooldown = Math.ceil((cd - elapsedTime) / 60000); // Convert remaining milliseconds to minutes
-			message.reply("You can only rep once per hour! 😡\nYou are on cooldown for: " + remainingCooldown + " minutes");
-			return;
+			console.log(">> currentTime: " + currentTime);
+			console.log(">> userCreatedDate: " + userCreatedDate.getTime());
+			console.log(">> diff: " + (currentTime - userCreatedDate.getTime()));
+		
+			// Compare the dates
+			const elapsedTime = currentTime - userCreatedDate.getTime();
+			if (elapsedTime < cd) {
+				const remainingCooldown = Math.ceil((cd - elapsedTime) / 60000); // Convert remaining milliseconds to minutes
+				message.reply("You can only rep once per hour! 😡\nYou are on cooldown for: " + remainingCooldown + " minutes");
+				return;
+			}
 		}
+	}
+	catch (error) {
+		console.log("An ignorable error occurred, this is being logged for debugging purposes.");
+		console.error(error);
+		console.log("This error is ALMOST POSITIVELY related to a new person showing up in pocketbase.");
 	}
 
 	if(!is_reply){
