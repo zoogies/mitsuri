@@ -108,7 +108,7 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
-async function delta_uuid_rep(uuid,delta) {
+async function delta_uuid_rep(vanity_name,uuid,delta) {
 	// console.log(">> plus_one_uuid_rep called for "+uuid);
 
 	const resultList = await pb.collection('usercache').getList(1, 1, {
@@ -117,7 +117,7 @@ async function delta_uuid_rep(uuid,delta) {
 
 	// if there is no item, create it with rep 1
 	if(resultList.items.length == 0){
-		await pb.collection('usercache').create({uuid: uuid, rep: delta});
+		await pb.collection('usercache').create({uuid: uuid, rep: delta, vanity_name: vanity_name});
 		return delta;
 	}
 
@@ -212,7 +212,7 @@ client.on(Events.MessageCreate, async message => {
 
 	// get rep count
 	try{
-		const repCount = await delta_uuid_rep(replied_uuid,delta);
+		const repCount = await delta_uuid_rep(message.author.username,replied_uuid,delta);
 		message.channel.send("<@"+replied_user+"> now has **"+repCount+"** rep!");
 	}
 	catch(e){
