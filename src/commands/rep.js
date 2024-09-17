@@ -1,13 +1,12 @@
 const { SlashCommandBuilder } = require('discord.js');
 
-const { pb } = require('../index.js');
-
 async function get_uuid_rep(uuid) {
+    const { pb } = require('../index.js'); // cannot sit on top level because of weird js fuckery
 	const resultList = await pb.collection('usercache').getList(1, 1, {
 		filter: `uuid="${uuid}"`,
 	});
 
-	// if there is no item, create it with rep 1
+	// if there is no item, create it with rep
 	if(resultList.items.length == 0){
 		await pb.collection('usercache').create({uuid: uuid, rep: 0});
 		return 0;
