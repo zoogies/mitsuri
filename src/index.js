@@ -118,7 +118,7 @@ async function delta_uuid_rep(uuid,delta) {
 	// if there is no item, create it with rep 1
 	if(resultList.items.length == 0){
 		await pb.collection('usercache').create({uuid: uuid, rep: delta});
-		return 1;
+		return delta;
 	}
 
 	// if there is an item, increment its rep by 1
