@@ -134,10 +134,10 @@ client.on(Events.MessageCreate, async message => {
 
 	content = message.content;
 	// if (content.includes("+1") || content.includes("+ 1") || content.includes("+1 ") || content.includes(" +1")) {
-	if (content.includes("+1")) {
+	if (content == "+1" ) {
 		delta = 1;
 	}
-	else if (content.includes("-1")) {
+	else if (content == "-1") {
 		delta = -1;
 	}
 	else {
