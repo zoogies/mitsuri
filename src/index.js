@@ -157,21 +157,22 @@ client.on(Events.MessageCreate, async message => {
 	try {
 		user = await pb.collection('rep').getFirstListItem(`sender="${sender_id}"`, { sort: '-created' });
 	
-		if (user != null) {
+		if (user != null) { // && env === 'production'
 			const userCreatedDate = new Date(user.created);
 			const currentTime = Date.now();
 			
-			const cd = 3600000; // 3600000 ms = 1 hour
+			// const cd = 3600000; // 3600000 ms = 1 hour
+			const cd = 7200000; // 7200000 ms = 2 hours
 		
-			console.log(">> currentTime: " + currentTime);
-			console.log(">> userCreatedDate: " + userCreatedDate.getTime());
-			console.log(">> diff: " + (currentTime - userCreatedDate.getTime()));
+			// console.log(">> currentTime: " + currentTime);
+			// console.log(">> userCreatedDate: " + userCreatedDate.getTime());
+			// console.log(">> diff: " + (currentTime - userCreatedDate.getTime()));
 		
 			// Compare the dates
 			const elapsedTime = currentTime - userCreatedDate.getTime();
 			if (elapsedTime < cd) {
 				const remainingCooldown = Math.ceil((cd - elapsedTime) / 60000); // Convert remaining milliseconds to minutes
-				message.reply("You can only rep once per hour! 😡\nYou are on cooldown for: " + remainingCooldown + " minutes");
+				message.reply("You can only rep once every 2 hours! 😡\nYou are on cooldown for: " + remainingCooldown + " minutes");
 				return;
 			}
 		}
@@ -205,6 +206,37 @@ client.on(Events.MessageCreate, async message => {
 		return;
 	}
 
+	// todo, check if repping the same message twice? only if meta is being abused
+
+	// check if the user is replying to a message with content "+1" or "-1", or in the case that its not a reply, the message above it
+	if(rep_content.startsWith("+1") || rep_content.startsWith("-1")){
+		message.reply("Rep trading is cringe. -1 for you. 😡");
+
+		// prep database operation
+		let data = {
+			"sender": sender_id,
+			"recipient": sender_id,
+			"sender_vanity_name": "Mitsuri_Penalty_Self_Rep",
+			"recipient_vanity_name": message.author.username, // bad naming convention, sue me, im tired
+			"rep_message": content,
+			"delta": -1,
+		};
+
+		// perform database operation
+		await pb.collection('rep').create(data);
+
+		// get rep count
+		try{
+			const repCount = await delta_uuid_rep(message.author.username,sender_id,-1);
+			message.channel.send("<@"+sender_id+"> now has **"+repCount+"** rep!");
+		}
+		catch(e){
+			message.channel.send("Something went wrong! 😢");
+		}
+
+		return;
+	}
+
 	// prep database operation
 	let data = {
 		"sender": sender_id,
@@ -221,7 +253,7 @@ client.on(Events.MessageCreate, async message => {
 
 	// get rep count
 	try{
-		const repCount = await delta_uuid_rep(message.author.username,replied_uuid,delta);
+		const repCount = await delta_uuid_rep(replied_user.username,replied_uuid,delta);
 		message.channel.send("<@"+replied_user+"> now has **"+repCount+"** rep!");
 	}
 	catch(e){
