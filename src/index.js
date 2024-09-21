@@ -108,158 +108,158 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
-async function delta_uuid_rep(vanity_name,uuid,delta) {
-	// console.log(">> plus_one_uuid_rep called for "+uuid);
+// async function delta_uuid_rep(vanity_name,uuid,delta) {
+// 	// console.log(">> plus_one_uuid_rep called for "+uuid);
 
-	const resultList = await pb.collection('usercache').getList(1, 1, {
-		filter: `uuid="${uuid}"`,
-	});
+// 	const resultList = await pb.collection('usercache').getList(1, 1, {
+// 		filter: `uuid="${uuid}"`,
+// 	});
 
-	// if there is no item, create it with rep 1
-	if(resultList.items.length == 0){
-		await pb.collection('usercache').create({uuid: uuid, rep: delta, vanity_name: vanity_name});
-		return delta;
-	}
+// 	// if there is no item, create it with rep 1
+// 	if(resultList.items.length == 0){
+// 		await pb.collection('usercache').create({uuid: uuid, rep: delta, vanity_name: vanity_name});
+// 		return delta;
+// 	}
 
-	// if there is an item, increment its rep by 1
-	const user = resultList.items[0];
-	const rep = user.rep + delta;
-	await pb.collection('usercache').update(user.id, {rep: rep});
+// 	// if there is an item, increment its rep by 1
+// 	const user = resultList.items[0];
+// 	const rep = user.rep + delta;
+// 	await pb.collection('usercache').update(user.id, {rep: rep});
 
-	return rep;
-}
+// 	return rep;
+// }
 
-client.on(Events.MessageCreate, async message => {
-	if (message.author.bot) return;
+// client.on(Events.MessageCreate, async message => {
+// 	if (message.author.bot) return;
 
-	content = message.content;
-	if (content.startsWith("+1")) {
-		delta = 1;
-	}
-	else if (content.startsWith("-1")) {
-		delta = -1;
-	}
-	else {
-		return
-	}
+// 	content = message.content;
+// 	if (content.startsWith("+1")) {
+// 		delta = 1;
+// 	}
+// 	else if (content.startsWith("-1")) {
+// 		delta = -1;
+// 	}
+// 	else {
+// 		return
+// 	}
 
-	replied_user = message.mentions.repliedUser;
-	replied_uuid = null;
-	is_reply = replied_user != null;
-	sender_id = message.author.id;
-	rep_content = null
-	// console.log(">> +1 detected from "+sender_id);
-	// console.log(">> is_reply: "+is_reply);
-	// console.log(">> replied_user: "+replied_user);
+// 	replied_user = message.mentions.repliedUser;
+// 	replied_uuid = null;
+// 	is_reply = replied_user != null;
+// 	sender_id = message.author.id;
+// 	rep_content = null
+// 	// console.log(">> +1 detected from "+sender_id);
+// 	// console.log(">> is_reply: "+is_reply);
+// 	// console.log(">> replied_user: "+replied_user);
 
-	// enforce a cooldown
-	let user = null;
-	try {
-		user = await pb.collection('rep').getFirstListItem(`sender="${sender_id}"`, { sort: '-created' });
+// 	// enforce a cooldown
+// 	let user = null;
+// 	try {
+// 		user = await pb.collection('rep').getFirstListItem(`sender="${sender_id}"`, { sort: '-created' });
 	
-		if (user != null) { // && env === 'production'
-			const userCreatedDate = new Date(user.created);
-			const currentTime = Date.now();
+// 		if (user != null) { // && env === 'production'
+// 			const userCreatedDate = new Date(user.created);
+// 			const currentTime = Date.now();
 			
-			// const cd = 3600000; // 3600000 ms = 1 hour
-			const cd = 7200000; // 7200000 ms = 2 hours
+// 			// const cd = 3600000; // 3600000 ms = 1 hour
+// 			const cd = 7200000; // 7200000 ms = 2 hours
 		
-			// console.log(">> currentTime: " + currentTime);
-			// console.log(">> userCreatedDate: " + userCreatedDate.getTime());
-			// console.log(">> diff: " + (currentTime - userCreatedDate.getTime()));
+// 			// console.log(">> currentTime: " + currentTime);
+// 			// console.log(">> userCreatedDate: " + userCreatedDate.getTime());
+// 			// console.log(">> diff: " + (currentTime - userCreatedDate.getTime()));
 		
-			// Compare the dates
-			const elapsedTime = currentTime - userCreatedDate.getTime();
-			if (elapsedTime < cd) {
-				const remainingCooldown = Math.ceil((cd - elapsedTime) / 60000); // Convert remaining milliseconds to minutes
-				message.reply("You can only rep once every 2 hours! 😡\nYou are on cooldown for: " + remainingCooldown + " minutes");
-				return;
-			}
-		}
-	}
-	catch (error) {
-		console.log("An ignorable error occurred, this is being logged for debugging purposes.");
-		console.error(error);
-		console.log("This error is ALMOST POSITIVELY related to a new person showing up in pocketbase.");
-	}
+// 			// Compare the dates
+// 			const elapsedTime = currentTime - userCreatedDate.getTime();
+// 			if (elapsedTime < cd) {
+// 				const remainingCooldown = Math.ceil((cd - elapsedTime) / 60000); // Convert remaining milliseconds to minutes
+// 				message.reply("You can only rep once every 2 hours! 😡\nYou are on cooldown for: " + remainingCooldown + " minutes");
+// 				return;
+// 			}
+// 		}
+// 	}
+// 	catch (error) {
+// 		console.log("An ignorable error occurred, this is being logged for debugging purposes.");
+// 		console.error(error);
+// 		console.log("This error is ALMOST POSITIVELY related to a new person showing up in pocketbase.");
+// 	}
 
-	if(!is_reply){
-		// detect the message right above it
-		const messages = await message.channel.messages.fetch({ limit: 2 });
-		const lastMessage = messages.last();
-		replied_user = lastMessage.author;
-		replied_uuid = replied_user.id;
-		// console.log(">> lastMessage: "+lastMessage.content);
-		rep_content = lastMessage.content;
-	}
-	else{
-		replied_uuid = replied_user.id;
+// 	if(!is_reply){
+// 		// detect the message right above it
+// 		const messages = await message.channel.messages.fetch({ limit: 2 });
+// 		const lastMessage = messages.last();
+// 		replied_user = lastMessage.author;
+// 		replied_uuid = replied_user.id;
+// 		// console.log(">> lastMessage: "+lastMessage.content);
+// 		rep_content = lastMessage.content;
+// 	}
+// 	else{
+// 		replied_uuid = replied_user.id;
 
-		const repliedTo = await message.fetchReference();
-		rep_content = repliedTo.content;
-	}
-	// console.log(">> repliedTo: "+rep_content);
+// 		const repliedTo = await message.fetchReference();
+// 		rep_content = repliedTo.content;
+// 	}
+// 	// console.log(">> repliedTo: "+rep_content);
 
-	if(replied_user == sender_id){
-		let sass = ['😒', '🙄', '😑', '😠', '😾', '💢'];
-		message.reply("You can't rep yourself! "+sass[Math.floor(Math.random() * sass.length)]);
-		return;
-	}
+// 	if(replied_user == sender_id){
+// 		let sass = ['😒', '🙄', '😑', '😠', '😾', '💢'];
+// 		message.reply("You can't rep yourself! "+sass[Math.floor(Math.random() * sass.length)]);
+// 		return;
+// 	}
 
-	// todo, check if repping the same message twice? only if meta is being abused
+// 	// todo, check if repping the same message twice? only if meta is being abused
 
-	// check if the user is replying to a message with content "+1" or "-1", or in the case that its not a reply, the message above it
-	if(rep_content.startsWith("+1") || rep_content.startsWith("-1")){
-		message.reply("Rep trading is cringe. -1 for you. 😡");
+// 	// check if the user is replying to a message with content "+1" or "-1", or in the case that its not a reply, the message above it
+// 	if(rep_content.startsWith("+1") || rep_content.startsWith("-1")){
+// 		message.reply("Rep trading is cringe. -1 for you. 😡");
 
-		// prep database operation
-		let data = {
-			"sender": sender_id,
-			"recipient": sender_id,
-			"sender_vanity_name": "Mitsuri_Penalty_Self_Rep",
-			"recipient_vanity_name": message.author.username, // bad naming convention, sue me, im tired
-			"rep_message": content,
-			"delta": -1,
-		};
+// 		// prep database operation
+// 		let data = {
+// 			"sender": sender_id,
+// 			"recipient": sender_id,
+// 			"sender_vanity_name": "Mitsuri_Penalty_Self_Rep",
+// 			"recipient_vanity_name": message.author.username, // bad naming convention, sue me, im tired
+// 			"rep_message": content,
+// 			"delta": -1,
+// 		};
 
-		// perform database operation
-		await pb.collection('rep').create(data);
+// 		// perform database operation
+// 		await pb.collection('rep').create(data);
 
-		// get rep count
-		try{
-			const repCount = await delta_uuid_rep(message.author.username,sender_id,-1);
-			message.channel.send("<@"+sender_id+"> now has **"+repCount+"** rep!");
-		}
-		catch(e){
-			message.channel.send("Something went wrong! 😢");
-		}
+// 		// get rep count
+// 		try{
+// 			const repCount = await delta_uuid_rep(message.author.username,sender_id,-1);
+// 			message.channel.send("<@"+sender_id+"> now has **"+repCount+"** rep!");
+// 		}
+// 		catch(e){
+// 			message.channel.send("Something went wrong! 😢");
+// 		}
 
-		return;
-	}
+// 		return;
+// 	}
 
-	// prep database operation
-	let data = {
-		"sender": sender_id,
-		"recipient": replied_uuid,
-		"sender_vanity_name": message.author.username,
-		"recipient_vanity_name": replied_user.username, // bad naming convention, sue me, im tired
-		"rep_message": rep_content,
-		"delta": delta,
-	};
+// 	// prep database operation
+// 	let data = {
+// 		"sender": sender_id,
+// 		"recipient": replied_uuid,
+// 		"sender_vanity_name": message.author.username,
+// 		"recipient_vanity_name": replied_user.username, // bad naming convention, sue me, im tired
+// 		"rep_message": rep_content,
+// 		"delta": delta,
+// 	};
 
-	// perform database operation
-	await pb.collection('rep').create(data);
-	// message.react('👍');
+// 	// perform database operation
+// 	await pb.collection('rep').create(data);
+// 	// message.react('👍');
 
-	// get rep count
-	try{
-		const repCount = await delta_uuid_rep(replied_user.username,replied_uuid,delta);
-		message.channel.send("<@"+replied_user+"> now has **"+repCount+"** rep!");
-	}
-	catch(e){
-		message.channel.send("Something went wrong! 😢");
-	}
-});
+// 	// get rep count
+// 	try{
+// 		const repCount = await delta_uuid_rep(replied_user.username,replied_uuid,delta);
+// 		message.channel.send("<@"+replied_user+"> now has **"+repCount+"** rep!");
+// 	}
+// 	catch(e){
+// 		message.channel.send("Something went wrong! 😢");
+// 	}
+// });
 
 client.login(token);
 console.log(">> Bot fully initialized.");
