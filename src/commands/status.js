@@ -38,7 +38,7 @@ module.exports = {
                 .setTitle(`build v${pkg.version}`)
                 .setURL('https://github.com/zoogies/mitsuri/releases/latest')
                 .setAuthor({ name: 'Mitsuri', iconURL: 'https://media.discordapp.net/attachments/790703174746636328/1040057921947578408/tumblr_4ddb73070eb53c6a0b0dea43cc2781cd_c1cecc63_1280_cropped.png', url: 'https://github.com/zoogies/mitsuri' })
-                .setDescription(`Running on [zoogies.live](https://zoogies.live) for \`${duration}\``)
+                .setDescription(`Running on [zoogies.dev](https://zoogies.dev) for \`${duration}\``)
                 .setThumbnail('https://media.discordapp.net/attachments/790703174746636328/1040057921947578408/tumblr_4ddb73070eb53c6a0b0dea43cc2781cd_c1cecc63_1280_cropped.png')
                 .addFields(
                     { name: '**Changelog:**', value: `\n--------------\n${ notes }\n--------------\n`, inline:false },

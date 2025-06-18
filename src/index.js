@@ -8,7 +8,7 @@ const { Configuration, OpenAIApi } = require("openai");
 
 // pocketbase
 const PocketBase = require('pocketbase/cjs');
-const pb = new PocketBase('https://db.zoogies.live');
+const pb = new PocketBase('https://db.zoogies.dev');
 
 // get the env and read from our config accordingly
 const env = process.env.NODE_ENV || 'production';
@@ -28,7 +28,7 @@ if (env === 'development') {
 	console.log(">> ELEVEN API KEY LOADED");
 	
 	const authData = pb.admins.authWithPassword(configDev.pb_email, configDev.pb_password);
-	console.log(">> Authenticated with db.zoogies.live");
+	console.log(">> Authenticated with db.zoogies.dev");
 } 
 else {
 	console.log(">> launching in production mode");
@@ -87,7 +87,7 @@ for (const file of commandFiles) {
  
 client.once(Events.ClientReady, () => {
 	console.log(">> Mitsuri Bot v"+ver+" by Ryan Zmuda");
-	rpc = 'with https://zoogies.live servers 😎';
+	rpc = 'with https://zoogies.dev servers 😎';
 	client.user.setActivity(rpc);
 	console.log('>> RPC set -> Playing '+rpc);
 	console.log('>> Being wholesome in '+client.guilds.cache.size.toString()+' guilds')
